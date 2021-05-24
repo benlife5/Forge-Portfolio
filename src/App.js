@@ -1,11 +1,10 @@
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import WeatherApp from "./weather-app/WeatherApp"
-import RestaurantApp from "./restaurant-finder/RestaurantApp"
+import WeatherApp from "./weather-app/WeatherApp";
+import RestaurantApp from "./restaurant-finder/RestaurantApp";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Link to="/home">Home</Link>
       <Link to="/weather">Weather</Link>
       <Link to="/restaurants">Restaurant Finder</Link>
@@ -18,11 +17,7 @@ function App() {
 }
 
 function Home() {
-  return(
-    <div>
-      Home
-    </div>
-  )
+  return <div>Home</div>;
 }
 
 export default App;
