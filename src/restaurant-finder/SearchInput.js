@@ -90,7 +90,7 @@ function SearchInput(props) {
   };
 
   return (
-    <div style={{marginRight: "2%", backgroundColor: "#f9f9f9", height: "100%", padding: "2%"}}>
+    <div style={{marginRight: ".5vw", backgroundColor: "#f9f9f9", height: "100%", padding: "2%"}}>
       <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="horizontal">
         <Form.Item label="Location" name="location">
           <AutoComplete options={options} onSearch={autoComplete} /> 

@@ -9,7 +9,7 @@ function App() {
       <Link to="/home">Home</Link>
       <Link to="/weather">Weather</Link>
       <Link to="/restaurants">Restaurant Finder</Link>
-      
+
       <Route path="/weather" component={WeatherApp} />
       <Route path="/restaurants" component={RestaurantApp} />
       <Route path="/home" component={Home} />
@@ -20,9 +20,7 @@ function App() {
 function Home() {
   return(
     <div>
-      <Link to="/home">Home</Link>
-      <Link to="/weather">Weather</Link>
-      <Link to="/restaurants">Restaurant Finder</Link>
+      Home
     </div>
   )
 }
