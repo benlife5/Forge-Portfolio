@@ -1,10 +1,20 @@
 import LocationInput from "./LocationInput.js";
 import CurrentWeather from "./CurrentWeather.js";
 import Forecast from "./Forecast.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function WeatherApp() {
+function WeatherApp({
+  match: {
+    params: { location },
+  },
+}) {
+  console.log(location);
   const [position, setPosition] = useState(false);
+  useEffect(() => {
+    if (location !== "home") {
+      setPosition(location.split(","));
+    }
+  }, [location]);
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import WeatherApp from "./weather-app/WeatherApp";
 import RestaurantApp from "./restaurant-finder/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
@@ -46,7 +46,7 @@ function App() {
 
           <div style={{ textAlign: "right" }}>
             <Link
-              to="/weather"
+              to={"/weather/home"}
               component={Button}
               variant="contained"
               color="primary"
@@ -54,7 +54,7 @@ function App() {
               Weather
             </Link>
             <Link
-              to="/restaurants"
+              to={`/restaurants/home`}
               component={Button}
               variant="contained"
               color="primary"
@@ -63,10 +63,11 @@ function App() {
             </Link>
           </div>
         </div>
-
-        <Route path="/weather" component={WeatherApp} />
-        <Route path="/restaurants" component={RestaurantApp} />
-        <Route path="/home" component={Home} />
+        <Switch>
+          <Route path="/weather/:location" component={WeatherApp} />
+          <Route path="/restaurants/:location" component={RestaurantApp} />
+          <Route path="/home/" component={Home} />
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -7,6 +7,7 @@ import {
   AutoComplete,
 } from "antd";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 const axios = require("axios");
 const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
@@ -15,6 +16,7 @@ const MILE_TO_METER = 1609.34;
 
 function SearchInput(props) {
   const [options, setOptions] = useState([]);
+  const inputCoords = props.inputCoords;
 
   const autoComplete = (searchInput) => {
     axios
@@ -109,6 +111,15 @@ function SearchInput(props) {
       .catch((error) => console.log(error));
   };
 
+  console.log(props.defaultLocation);
+  if (props.defaultLocation !== "home") {
+    search({
+      location: props.defaultLocation,
+      type: "results",
+      radius: 5 * MILE_TO_METER,
+    });
+  }
+
   return (
     <div
       style={{
@@ -170,6 +181,17 @@ function SearchInput(props) {
           </Button>
         </Form.Item>
       </Form>
+
+      {inputCoords && (
+        <Link
+          to={"/weather/" + inputCoords.lat + "," + inputCoords.lng}
+          component={Button}
+          variant="contained"
+          color="primary"
+        >
+          Check the Weather Here
+        </Link>
+      )}
     </div>
   );
 }

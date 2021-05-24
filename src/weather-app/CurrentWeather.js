@@ -1,6 +1,7 @@
-import { Typography, Paper } from "@material-ui/core";
+import { Typography, Paper, Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import timestamp from "unix-timestamp";
+import { Link } from "react-router-dom";
 
 function CurrentWeather({ position }) {
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
@@ -43,6 +44,21 @@ function CurrentWeather({ position }) {
         >
           {weather.name} Weather
         </Typography>
+
+        {position && (
+          <Link
+            to={"/restaurants/" + weather.name}
+            component={Button}
+            variant="outlines"
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              marginBottom: "1%",
+            }}
+          >
+            Search for Restaurants and Other Places Here
+          </Link>
+        )}
 
         {/* Current Weather */}
         <Paper

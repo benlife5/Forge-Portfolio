@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 import SearchInput from "./SearchInput.js";
 import SearchResults from "./SearchResults.js";
 import LocationsMap from "./LocationsMap.js";
 
-function RestaurantApp() {
+function RestaurantApp({
+  match: {
+    params: { location },
+  },
+}) {
   const [results, setResults] = useState(null);
   const [inputCoords, setInputCoords] = useState(null);
+
+  console.log(location);
   // console.log("TOP LEVEL", results)
   return (
     <div style={{ height: "90vh", padding: "1%" }}>
@@ -16,6 +22,8 @@ function RestaurantApp() {
           <SearchInput
             setResults={setResults}
             setInputCoords={setInputCoords}
+            inputCoords={inputCoords}
+            defaultLocation={location}
           />
         </Col>
         <Col span={12}>
