@@ -101,7 +101,7 @@ function SearchResults(props) {
         dataSource={props.locations}
         columns={columns}
         pagination={{ pageSize: 20, position: ["none", "none"] }}
-        scroll={{ y: "38vh" }}
+        scroll={{ y: "35vh" }}
       />
     </div>
   );
