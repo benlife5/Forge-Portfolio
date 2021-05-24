@@ -1,10 +1,9 @@
-import './App.css';
 import LocationInput from "./LocationInput.js";
 import CurrentWeather from "./CurrentWeather.js";
 import Forecast from "./Forecast.js";
 import {useState} from "react";
 
-function App() {
+function WeatherApp() {
   const [position, setPosition] = useState(false);
 
   return (
@@ -16,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default WeatherApp;

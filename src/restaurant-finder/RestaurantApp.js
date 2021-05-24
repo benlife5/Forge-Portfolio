@@ -1,4 +1,3 @@
-import './App.css';
 import {useState} from "react";
 import {Row, Col} from 'antd';
 import 'antd/dist/antd.css';
@@ -6,7 +5,7 @@ import SearchInput from './SearchInput.js';
 import SearchResults from './SearchResults.js';
 import LocationsMap from './LocationsMap.js';
 
-function App() {
+function RestaurantApp() {
 
   const [results, setResults] = useState(null);
   const [inputCoords, setInputCoords] = useState(null);
@@ -24,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default RestaurantApp;
