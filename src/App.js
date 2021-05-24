@@ -73,7 +73,22 @@ function App() {
 }
 
 function Home() {
-  return <div>Home</div>;
+  console.log(theme);
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        paddingTop: "2vh",
+        backgroundColor: theme.palette.primary.main,
+        height: "92.5vh",
+      }}
+    >
+      <Typography variant="h2"> Ben Life - Forge Launch 2021</Typography>
+      <Typography variant="h6">
+        Check out my weather and restaurant finder apps!
+      </Typography>
+    </div>
+  );
 }
 
 export default App;
