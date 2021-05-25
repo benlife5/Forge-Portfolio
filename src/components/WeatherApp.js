@@ -22,19 +22,20 @@ function WeatherApp({
   }, [location, setCoords]);
 
   return (
-    <div
-      className="App"
-      style={{
-        width: "60%",
-        minWidth: "min-content",
-        margin: "auto",
-        backgroundColor: "lightgray",
-        padding: "2%",
-      }}
-    >
-      <LocationInput />
-      <CurrentWeather />
-      <Forecast />
+    <div style={{ width: "100%", backgroundColor: "lightgray" }}>
+      <div
+        className="App"
+        style={{
+          width: "60%",
+          minWidth: "min-content",
+          margin: "auto",
+          padding: "2%",
+        }}
+      >
+        <LocationInput />
+        <CurrentWeather />
+        <Forecast />
+      </div>
     </div>
   );
 }

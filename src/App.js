@@ -45,7 +45,12 @@ function App() {
 
             <div style={{ textAlign: "right" }}>
               <Link to={"/weather/home"}>
-                <Button variant="contained" color="primary" component="p">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component="p"
+                  style={{ marginRight: "1vw" }}
+                >
                   Weather
                 </Button>
               </Link>

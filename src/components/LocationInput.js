@@ -9,7 +9,6 @@ function LocationInput() {
 
   useEffect(() => {
     if (coords) {
-      console.log("running");
       window.history.pushState(
         { coords, app: "weather" },
         "",

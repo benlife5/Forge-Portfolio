@@ -11,7 +11,6 @@ function LocationsMap(props) {
 
   useEffect(() => {
     let center;
-    console.log("location", locations);
     if (!originalCoords) return null;
     if (!locations || !locations[0]) {
       center = { ...originalCoords, zoom: 6 };

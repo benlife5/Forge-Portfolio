@@ -33,8 +33,6 @@ function SearchInput(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(props);
-
   useEffect(() => {
     if (coords) {
       window.history.pushState(

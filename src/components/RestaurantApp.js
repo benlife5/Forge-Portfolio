@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 import RestaurantInput from "./RestaurantInput.js";
