@@ -65,7 +65,7 @@ function App() {
         </div>
         <Switch>
           <Route path="/weather/:location" component={WeatherApp} />
-          <Route path="/restaurants/:location" component={RestaurantApp} />
+          <Route path="/restaurants/" component={RestaurantApp} />
           <Route path="/home/" component={Home} />
         </Switch>
       </ThemeProvider>

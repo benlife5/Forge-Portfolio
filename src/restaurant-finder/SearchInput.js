@@ -111,14 +111,14 @@ function SearchInput(props) {
       .catch((error) => console.log(error));
   };
 
-  console.log(props.defaultLocation);
-  if (props.defaultLocation !== "home") {
-    search({
-      location: props.defaultLocation,
-      type: "results",
-      radius: 5 * MILE_TO_METER,
-    });
-  }
+  // console.log(props.defaultLocation);
+  // if (props.defaultLocation !== "home") {
+  //   search({
+  //     location: props.defaultLocation,
+  //     type: "results",
+  //     radius: 5 * MILE_TO_METER,
+  //   });
+  // }
 
   return (
     <div

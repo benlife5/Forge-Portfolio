@@ -45,7 +45,7 @@ function CurrentWeather({ position }) {
           {weather.name} Weather
         </Typography>
 
-        {position && (
+        {/* {position && (
           <Link
             to={"/restaurants/" + weather.name}
             component={Button}
@@ -58,7 +58,7 @@ function CurrentWeather({ position }) {
           >
             Search for Restaurants and Other Places Here
           </Link>
-        )}
+        )} */}
 
         {/* Current Weather */}
         <Paper
