@@ -23,7 +23,10 @@ function WeatherApp({
 
   return (
     <div
-      style={{ width: "100%", height: "100%", backgroundColor: "lightgray" }}
+      style={{
+        width: "100%",
+        backgroundColor: "lightgray",
+      }}
     >
       <div
         className="App"
