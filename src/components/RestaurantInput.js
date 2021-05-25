@@ -22,12 +22,21 @@ function SearchInput(props) {
     if (coords) {
       locationSearch({ type: "restaurant", radius: 5 });
     }
+    if (props.urlLocation !== "home") {
+      const urlCoords = {
+        lat: parseInt(props.urlLocation.split(",")[0]),
+        lng: parseInt(props.urlLocation.split(",")[1]),
+      };
+      setCoords(urlCoords);
+      locationSearch({ type: "restaurant", radius: 5 }, urlCoords);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(props);
+
   useEffect(() => {
     if (coords) {
-      console.log("running");
       window.history.pushState(
         { coords, app: "restaurant" },
         "",

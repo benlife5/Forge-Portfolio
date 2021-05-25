@@ -49,7 +49,7 @@ function App() {
                   Weather
                 </Button>
               </Link>
-              <Link to={`/restaurants/home`}>
+              <Link to={"/restaurants/home"}>
                 <Button variant="contained" color="primary" component="p">
                   Restaurant Finder
                 </Button>
@@ -58,7 +58,7 @@ function App() {
           </div>
           <Switch>
             <Route path="/weather/:location" component={WeatherApp} />
-            <Route path="/restaurants/" component={RestaurantApp} />
+            <Route path="/restaurants/:location" component={RestaurantApp} />
             <Route path="/home/" component={Home} />
           </Switch>
         </LocationProvider>
