@@ -1,7 +1,6 @@
-import { Typography, Paper, Button } from "@material-ui/core";
+import { Typography, Paper } from "@material-ui/core";
 import { useEffect, useState, useContext } from "react";
 import timestamp from "unix-timestamp";
-import { Link } from "react-router-dom";
 import { LocationContext } from "../contexts/LocationContext";
 
 function CurrentWeather() {

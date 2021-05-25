@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import WeatherApp from "./weather-app/WeatherApp";
 import RestaurantApp from "./restaurant-finder/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
@@ -74,7 +68,6 @@ function App() {
 }
 
 function Home() {
-  console.log(theme);
   return (
     <div
       style={{

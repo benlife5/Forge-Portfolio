@@ -14,7 +14,8 @@ function LocationInput() {
   };
   const handleCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => setCoords({ lat: pos.latitude, lng: pos.longitude }),
+      (pos) =>
+        setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
       (error) => alert(error.message)
     );
   };

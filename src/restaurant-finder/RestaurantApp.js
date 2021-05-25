@@ -1,23 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 import SearchInput from "./SearchInput.js";
 import SearchResults from "./SearchResults.js";
 import LocationsMap from "./LocationsMap.js";
-import { LocationContext } from "../contexts/LocationContext";
 
-function RestaurantApp({
-  match: {
-    params: { location },
-  },
-}) {
+function RestaurantApp() {
   const [results, setResults] = useState(null);
-  const { coords } = useContext(LocationContext);
-  console.log("RestaurantApp Rendering", Date.now());
-  console.log("RestaurantApp coords at render: ", coords);
 
-  console.log(location);
-  // console.log("TOP LEVEL", results)
   return (
     <div style={{ height: "90vh", padding: "1%" }}>
       <Row style={{ height: "50%" }}>

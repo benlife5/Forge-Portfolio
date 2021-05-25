@@ -18,12 +18,11 @@ const MILE_TO_METER = 1609.34;
 function SearchInput(props) {
   const [options, setOptions] = useState([]);
   const { coords, setCoords } = useContext(LocationContext);
-  console.log("coords at restaurant render: ", coords);
   useEffect(() => {
-    console.log("running useEffect", Date.now());
     if (coords) {
       locationSearch({ type: "restaurant", radius: 5 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const autoComplete = (searchInput) => {
     axios
@@ -34,7 +33,6 @@ function SearchInput(props) {
         },
       })
       .then((res) => {
-        // console.log("prediction: ", res);
         const predictions = res.data.predictions.map((prediction) => {
           return { value: prediction.description };
         });
@@ -45,7 +43,6 @@ function SearchInput(props) {
 
   // Search input => coords
   const getCoords = async (searchInput) => {
-    // console.log(searchInput)
     // Convert input to geo location
     let geocodeLocation = await axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
@@ -56,7 +53,6 @@ function SearchInput(props) {
       })
       .catch((error) => console.log(error));
     const newCoords = geocodeLocation.data.results[0].geometry.location;
-    // console.log("newCoords inside fm", newCoords);
     return newCoords;
   };
 
@@ -76,7 +72,6 @@ function SearchInput(props) {
       })
       // Get desired info about all places
       .then((locations) => {
-        console.log("results", locations);
         Promise.all(
           locations.data.results.map(async (location) => {
             let info = await axios
@@ -94,7 +89,6 @@ function SearchInput(props) {
         )
           // Update app
           .then((finalLocations) => {
-            // console.log("outputLocations", finalLocations)
             finalLocations.map(
               (location) => (location["key"] = location["place_id"])
             ); // Needed for react
@@ -111,15 +105,6 @@ function SearchInput(props) {
     setCoords(newCoords);
     locationSearch(searchInput, newCoords);
   };
-
-  // console.log(props.defaultLocation);
-  // if (props.defaultLocation !== "home") {
-  //   search({
-  //     location: props.defaultLocation,
-  //     type: "results",
-  //     radius: 5 * MILE_TO_METER,
-  //   });
-  // }
 
   return (
     <div

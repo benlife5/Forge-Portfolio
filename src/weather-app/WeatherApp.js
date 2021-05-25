@@ -9,11 +9,13 @@ function WeatherApp({
     params: { location },
   },
 }) {
-  const { coords, setCoords } = useContext(LocationContext);
-  console.log("coords at weather render: ", coords);
+  const { setCoords } = useContext(LocationContext);
   useEffect(() => {
     if (location !== "home") {
-      setCoords({ lat: location.split(",")[0], lng: location.split(",")[1] });
+      setCoords({
+        lat: parseInt(location.split(",")[0]),
+        lng: parseInt(location.split(",")[1]),
+      });
     }
   }, [location, setCoords]);
 

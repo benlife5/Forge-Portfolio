@@ -4,12 +4,13 @@ import { LocationContext } from "../contexts/LocationContext";
 
 function LocationsMap(props) {
   const { coords: originalCoords } = useContext(LocationContext);
+  console.log(originalCoords);
   const locations = props.locations;
   const [viewport, setViewport] = useState();
   const [activePopup, setActivePopup] = useState();
 
   useEffect(() => {
-    if (locations === null) return null;
+    if (!locations || !originalCoords) return null;
 
     let topLeft = locations[0].geometry.location;
     let bottomRight = locations[0].geometry.location;
@@ -27,11 +28,9 @@ function LocationsMap(props) {
         bottomRight = locations[i].geometry.location;
       }
     }
-    // console.log("start", topLeft, bottomRight)
 
     const lat = (bottomRight.lat - topLeft.lat) / 2 + topLeft.lat;
     const lng = (bottomRight.lng - topLeft.lng) / 2 + topLeft.lng;
-    // console.log("final", lat, lng)
     setViewport({
       width: "100%",
       height: "100%",
@@ -40,9 +39,8 @@ function LocationsMap(props) {
       zoom: 12,
       style: { mapbox: "//styles/mapbox/streets-v11" },
     });
-  }, [locations]);
+  }, [originalCoords, locations]);
 
-  // console.log(props.inputCoords);
   if (locations === null) {
     return (
       <div
