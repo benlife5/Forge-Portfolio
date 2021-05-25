@@ -1,23 +1,25 @@
 import { Typography, Paper, Button } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import timestamp from "unix-timestamp";
 import { Link } from "react-router-dom";
+import { LocationContext } from "../contexts/LocationContext";
 
-function CurrentWeather({ position }) {
+function CurrentWeather() {
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
   const [weather, setWeather] = useState(null);
+  const { coords } = useContext(LocationContext);
 
   const formatDate = (options) => {
     return Intl.DateTimeFormat("en-US", options).format(weather.date);
   };
 
   useEffect(() => {
-    const url = new URL("https://api.openweathermap.org/data/2.5/weather");
-    url.searchParams.append("appid", API_KEY);
-    url.searchParams.append("lat", position[0]);
-    url.searchParams.append("lon", position[1]);
-    url.searchParams.append("units", "imperial");
-    if (position[0] && position[1]) {
+    if (coords) {
+      const url = new URL("https://api.openweathermap.org/data/2.5/weather");
+      url.searchParams.append("appid", API_KEY);
+      url.searchParams.append("lat", coords.lat);
+      url.searchParams.append("lon", coords.lng);
+      url.searchParams.append("units", "imperial");
       fetch(url)
         .then((res) => {
           return res.json();
@@ -31,7 +33,7 @@ function CurrentWeather({ position }) {
           }
         });
     }
-  }, [position, API_KEY]);
+  }, [coords, API_KEY]);
 
   return (
     weather && (

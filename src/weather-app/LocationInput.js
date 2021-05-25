@@ -1,18 +1,20 @@
 import { Button, Paper, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import zipcodes from "zipcodes";
+import { LocationContext } from "../contexts/LocationContext";
 
-function LocationInput({ setPosition }) {
+function LocationInput() {
   const [inputZIP, setInputZIP] = useState("");
+  const { setCoords } = useContext(LocationContext);
   const handleZipInput = (e) => {
     e.preventDefault();
     const pos = zipcodes.lookup(inputZIP);
-    if (pos !== undefined) setPosition([pos.latitude, pos.longitude]);
+    if (pos !== undefined) setCoords({ lat: pos.latitude, lng: pos.longitude });
     else alert(inputZIP + " is not a valid US ZIP code.");
   };
   const handleCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => setPosition([pos.coords.latitude, pos.coords.longitude]),
+      (pos) => setCoords({ lat: pos.latitude, lng: pos.longitude }),
       (error) => alert(error.message)
     );
   };

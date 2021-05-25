@@ -1,7 +1,8 @@
 import LocationInput from "./LocationInput.js";
 import CurrentWeather from "./CurrentWeather.js";
 import Forecast from "./Forecast.js";
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { LocationContext } from "../contexts/LocationContext";
 
 function WeatherApp({
   match: {
@@ -9,10 +10,10 @@ function WeatherApp({
   },
 }) {
   console.log(location);
-  const [position, setPosition] = useState(false);
+  const { coords, setCoords } = useContext(LocationContext);
   useEffect(() => {
     if (location !== "home") {
-      setPosition(location.split(","));
+      setCoords({ lat: location.split(",")[0], lng: location.split(",")[1] });
     }
   }, [location]);
 
@@ -27,9 +28,9 @@ function WeatherApp({
         padding: "2%",
       }}
     >
-      <LocationInput setPosition={setPosition} />
-      <CurrentWeather position={position} />
-      <Forecast position={position} />
+      <LocationInput />
+      <CurrentWeather />
+      <Forecast />
     </div>
   );
 }
