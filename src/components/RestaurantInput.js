@@ -24,6 +24,18 @@ function SearchInput(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (coords) {
+      console.log("running");
+      window.history.pushState(
+        { coords, app: "restaurant" },
+        "",
+        coords.lat + "," + coords.lng
+      );
+    }
+  }, [coords]);
+
   const autoComplete = (searchInput) => {
     axios
       .get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {

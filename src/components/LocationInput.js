@@ -1,11 +1,22 @@
 import { Button, Paper, TextField } from "@material-ui/core";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import zipcodes from "zipcodes";
 import { LocationContext } from "../contexts/LocationContext";
 
 function LocationInput() {
   const [inputZIP, setInputZIP] = useState("");
-  const { setCoords } = useContext(LocationContext);
+  const { coords, setCoords } = useContext(LocationContext);
+
+  useEffect(() => {
+    if (coords) {
+      console.log("running");
+      window.history.pushState(
+        { coords, app: "weather" },
+        "",
+        coords.lat + "," + coords.lng
+      );
+    }
+  }, [coords]);
 
   const handleZipInput = (e) => {
     e.preventDefault();
