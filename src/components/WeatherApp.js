@@ -22,7 +22,9 @@ function WeatherApp({
   }, [location, setCoords]);
 
   return (
-    <div style={{ width: "100%", backgroundColor: "lightgray" }}>
+    <div
+      style={{ width: "100%", height: "100%", backgroundColor: "lightgray" }}
+    >
       <div
         className="App"
         style={{
