@@ -40,7 +40,7 @@ function LocationsMap(props) {
     });
   }, [locations]);
 
-  console.log(props.inputCoords);
+  // console.log(props.inputCoords);
   if (locations === null) {
     return (
       <div

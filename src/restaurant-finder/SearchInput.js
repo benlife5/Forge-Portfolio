@@ -27,7 +27,7 @@ function SearchInput(props) {
         },
       })
       .then((res) => {
-        console.log("prediction: ", res);
+        // console.log("prediction: ", res);
         const predictions = res.data.predictions.map((prediction) => {
           return { value: prediction.description };
         });
@@ -36,8 +36,8 @@ function SearchInput(props) {
       .catch((error) => console.log(error));
   };
 
-  // Main Search Function
-  const search = (searchInput) => {
+  // Search input => coords
+  const getCoords = (searchInput) => {
     // console.log(searchInput)
     // Convert input to geo location
     axios
@@ -49,66 +49,63 @@ function SearchInput(props) {
       })
       // Convert location to coordinates
       .then((geocodeLocation) => {
-        console.log("location", geocodeLocation);
-        if (geocodeLocation.data.status === "OK") {
-          props.setInputCoords(
-            geocodeLocation.data.results[0].geometry.location
-          );
-          return geocodeLocation.data.results[0].geometry.location;
-        } else {
-          console.log("Error:", geocodeLocation);
-        }
+        // console.log("location", geocodeLocation);
+        props.setInputCoords(geocodeLocation.data.results[0].geometry.location);
+        return geocodeLocation.data.results[0].geometry.location;
       })
-      // Main search for places
-      .then((coords) => {
-        // console.log(searchInput);
-        let searchParams = {
-          key: GOOGLE_PLACES_API_KEY,
-          location: coords.lat + "," + coords.lng,
-          radius: parseInt(searchInput.radius) * MILE_TO_METER,
-          type: searchInput.type,
-        };
-        if (searchInput.open) searchParams["opennow"] = "";
+      .catch((e) => console.log(e));
+  };
 
-        axios
-          .get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
-            params: searchParams,
-          })
-          // Get desired info about all places
-          .then((locations) => {
-            console.log("results", locations);
-            Promise.all(
-              locations.data.results.map(async (location) => {
-                let info = await axios
-                  .get(
-                    "https://maps.googleapis.com/maps/api/place/details/json",
-                    {
-                      params: {
-                        key: GOOGLE_PLACES_API_KEY,
-                        place_id: location.place_id,
-                        fields:
-                          "formatted_address,name,formatted_phone_number,website,price_level,rating,place_id,geometry",
-                      },
-                    }
-                  )
-                  .catch((error) => console.log(error));
-                return info.data.result;
+  // coords => location
+  const locationSearch = (searchInput) => {
+    const coords = inputCoords;
+    let searchParams = {
+      key: GOOGLE_PLACES_API_KEY,
+      location: coords.lat + "," + coords.lng,
+      radius: parseInt(searchInput.radius) * MILE_TO_METER,
+      type: searchInput.type,
+    };
+    if (searchInput.open) searchParams["opennow"] = "";
+
+    axios
+      .get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
+        params: searchParams,
+      })
+      // Get desired info about all places
+      .then((locations) => {
+        console.log("results", locations);
+        Promise.all(
+          locations.data.results.map(async (location) => {
+            let info = await axios
+              .get("https://maps.googleapis.com/maps/api/place/details/json", {
+                params: {
+                  key: GOOGLE_PLACES_API_KEY,
+                  place_id: location.place_id,
+                  fields:
+                    "formatted_address,name,formatted_phone_number,website,price_level,rating,place_id,geometry",
+                },
               })
-            )
-              // Update app
-              .then((finalLocations) => {
-                // console.log("outputLocations", finalLocations)
-                finalLocations.map(
-                  (location) => (location["key"] = location["place_id"])
-                ); // Needed for react
-                props.setResults(finalLocations);
-              })
-              // Error handling
               .catch((error) => console.log(error));
+            return info.data.result;
           })
+        )
+          // Update app
+          .then((finalLocations) => {
+            // console.log("outputLocations", finalLocations)
+            finalLocations.map(
+              (location) => (location["key"] = location["place_id"])
+            ); // Needed for react
+            props.setResults(finalLocations);
+          })
+          // Error handling
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
+  };
+
+  const search = (searchInput) => {
+    getCoords(searchInput);
+    locationSearch(searchInput);
   };
 
   // console.log(props.defaultLocation);
