@@ -3,35 +3,16 @@ import { Button } from "@material-ui/core";
 import HourlyForecast from "./HourlyForecast.js";
 import DailyForecast from "./DailyForecast.js";
 import { LocationContext } from "../contexts/LocationContext";
+import { getForecast } from "../utils/WeatherUtils";
 
 function Forecast() {
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
   const [hourlyActive, setHourlyActive] = useState(true);
   const [forecast, setForecast] = useState(null);
   const { coords } = useContext(LocationContext);
 
   useEffect(() => {
-    const url = new URL("https://api.openweathermap.org/data/2.5/onecall");
-
-    if (coords) {
-      url.searchParams.append("appid", API_KEY);
-      url.searchParams.append("lat", coords.lat);
-      url.searchParams.append("lon", coords.lng);
-      url.searchParams.append("units", "imperial");
-      url.searchParams.append("exclude", "current,minutely,alerts");
-      fetch(url)
-        .then((res) => {
-          return res.json();
-        })
-        .then((obj) => {
-          if (obj.cod === "400") {
-            setForecast(false);
-          } else {
-            setForecast(obj);
-          }
-        });
-    }
-  }, [coords, API_KEY]);
+    getForecast(coords, setForecast);
+  }, [coords]);
 
   return (
     (hourlyActive && forecast && (

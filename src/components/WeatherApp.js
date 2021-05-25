@@ -1,4 +1,4 @@
-import LocationInput from "./LocationInput.js";
+import LocationInput from "../weather-app/LocationInput.js";
 import CurrentWeather from "./CurrentWeather.js";
 import Forecast from "./Forecast.js";
 import { useContext, useEffect } from "react";
@@ -10,6 +10,8 @@ function WeatherApp({
   },
 }) {
   const { setCoords } = useContext(LocationContext);
+
+  // React Router path parameters
   useEffect(() => {
     if (location !== "home") {
       setCoords({

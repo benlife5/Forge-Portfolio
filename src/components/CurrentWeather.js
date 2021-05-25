@@ -1,38 +1,17 @@
 import { Typography, Paper } from "@material-ui/core";
 import { useEffect, useState, useContext } from "react";
-import timestamp from "unix-timestamp";
 import { LocationContext } from "../contexts/LocationContext";
+import { getCurrentWeather, formatDate } from "../utils/WeatherUtils";
 
 function CurrentWeather() {
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
   const [weather, setWeather] = useState(null);
   const { coords } = useContext(LocationContext);
 
-  const formatDate = (options) => {
-    return Intl.DateTimeFormat("en-US", options).format(weather.date);
-  };
-
   useEffect(() => {
     if (coords) {
-      const url = new URL("https://api.openweathermap.org/data/2.5/weather");
-      url.searchParams.append("appid", API_KEY);
-      url.searchParams.append("lat", coords.lat);
-      url.searchParams.append("lon", coords.lng);
-      url.searchParams.append("units", "imperial");
-      fetch(url)
-        .then((res) => {
-          return res.json();
-        })
-        .then((obj) => {
-          if (obj.cod === 200) {
-            obj.date = timestamp.toDate(obj.dt);
-            setWeather(obj);
-          } else {
-            setWeather(false);
-          }
-        });
+      getCurrentWeather(coords, setWeather);
     }
-  }, [coords, API_KEY]);
+  }, [coords]);
 
   return (
     weather && (
@@ -45,21 +24,6 @@ function CurrentWeather() {
         >
           {weather.name} Weather
         </Typography>
-
-        {/* {position && (
-          <Link
-            to={"/restaurants/" + weather.name}
-            component={Button}
-            variant="outlines"
-            style={{
-              backgroundColor: "white",
-              width: "100%",
-              marginBottom: "1%",
-            }}
-          >
-            Search for Restaurants and Other Places Here
-          </Link>
-        )} */}
 
         {/* Current Weather */}
         <Paper
@@ -80,7 +44,7 @@ function CurrentWeather() {
           >
             <Typography variant="h5" component="h2">
               {" "}
-              {formatDate({
+              {formatDate(weather.dt, {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
@@ -88,7 +52,7 @@ function CurrentWeather() {
             </Typography>
             <Typography component="h2">
               {" "}
-              {formatDate({
+              {formatDate(weather.dt, {
                 hour: "numeric",
                 minute: "numeric",
                 hour12: true,
@@ -118,12 +82,10 @@ function CurrentWeather() {
             }}
           >
             <Typography variant="h5" component="p">
-              {" "}
-              {weather.weather[0].main.toUpperCase()}{" "}
+              {weather.weather[0].main.toUpperCase()}
             </Typography>
             <Typography component="p">
-              {" "}
-              {weather.weather[0].description}{" "}
+              {weather.weather[0].description}
             </Typography>
           </div>
 
@@ -137,12 +99,10 @@ function CurrentWeather() {
             }}
           >
             <Typography component="p">
-              {" "}
-              High: {Math.round(weather.main.temp_max)}℉{" "}
+              High: {Math.round(weather.main.temp_max)}℉
             </Typography>
             <Typography component="p">
-              {" "}
-              Low: {Math.round(weather.main.temp_min)}℉{" "}
+              Low: {Math.round(weather.main.temp_min)}℉
             </Typography>
           </div>
 

@@ -6,6 +6,7 @@ import { LocationContext } from "../contexts/LocationContext";
 function LocationInput() {
   const [inputZIP, setInputZIP] = useState("");
   const { setCoords } = useContext(LocationContext);
+
   const handleZipInput = (e) => {
     e.preventDefault();
     const pos = zipcodes.lookup(inputZIP);
@@ -19,6 +20,7 @@ function LocationInput() {
       (error) => alert(error.message)
     );
   };
+
   return (
     <Paper
       style={{

@@ -1,13 +1,7 @@
-import timestamp from "unix-timestamp";
 import { Paper, Typography } from "@material-ui/core";
+import { formatDate } from "../utils/WeatherUtils";
 
 function DailyForecast({ forecast }) {
-  const date = timestamp.toDate(forecast.dt);
-
-  const formatDate = (options) => {
-    return Intl.DateTimeFormat("en-US", options).format(date);
-  };
-
   return (
     <Paper
       varient="outlined"
@@ -27,16 +21,14 @@ function DailyForecast({ forecast }) {
         }}
       >
         <Typography variant="h5" component="h2">
-          {" "}
-          {formatDate({ weekday: "long" })}{" "}
+          {formatDate(forecast.dt, { weekday: "long" })}
         </Typography>
         <Typography component="h2">
-          {" "}
-          {formatDate({
+          {formatDate(forecast.dt, {
             month: "2-digit",
             day: "2-digit",
             year: "2-digit",
-          })}{" "}
+          })}
         </Typography>
       </div>
 
@@ -62,13 +54,9 @@ function DailyForecast({ forecast }) {
         }}
       >
         <Typography variant="h5" component="p">
-          {" "}
-          {forecast.weather[0].main.toUpperCase()}{" "}
+          {forecast.weather[0].main.toUpperCase()}
         </Typography>
-        <Typography component="p">
-          {" "}
-          {forecast.weather[0].description}{" "}
-        </Typography>
+        <Typography component="p">{forecast.weather[0].description}</Typography>
       </div>
 
       {/* Precipitation */}
@@ -81,8 +69,7 @@ function DailyForecast({ forecast }) {
         }}
       >
         <Typography component="p">
-          {" "}
-          Precipitation <br /> {Math.round(forecast.pop * 100)}%{" "}
+          Precipitation <br /> {Math.round(forecast.pop * 100)}%
         </Typography>
       </div>
 
@@ -96,12 +83,10 @@ function DailyForecast({ forecast }) {
         }}
       >
         <Typography component="p">
-          {" "}
-          High: {Math.round(forecast.temp.max)}℉{" "}
+          High: {Math.round(forecast.temp.max)}℉
         </Typography>
         <Typography omponent="p">
-          {" "}
-          Low: {Math.round(forecast.temp.min)}℉{" "}
+          Low: {Math.round(forecast.temp.min)}℉
         </Typography>
       </div>
     </Paper>

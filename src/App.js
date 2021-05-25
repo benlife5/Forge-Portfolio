@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
-import WeatherApp from "./weather-app/WeatherApp";
+import WeatherApp from "./components/WeatherApp";
 import RestaurantApp from "./restaurant-finder/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
 import { LocationProvider } from "./contexts/LocationContext";
