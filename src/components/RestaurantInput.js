@@ -7,7 +7,6 @@ import {
   AutoComplete,
 } from "antd";
 import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { LocationContext } from "../contexts/LocationContext";
 const { Option } = Select;
 const axios = require("axios");
