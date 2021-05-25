@@ -23,8 +23,8 @@ function SearchInput(props) {
     }
     if (props.urlLocation !== "home") {
       const urlCoords = {
-        lat: parseInt(props.urlLocation.split(",")[0]),
-        lng: parseInt(props.urlLocation.split(",")[1]),
+        lat: parseFloat(props.urlLocation.split(",")[0]),
+        lng: parseFloat(props.urlLocation.split(",")[1]),
       };
       setCoords(urlCoords);
       locationSearch({ type: "restaurant", radius: 5 }, urlCoords);

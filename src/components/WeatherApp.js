@@ -15,8 +15,8 @@ function WeatherApp({
   useEffect(() => {
     if (location !== "home") {
       setCoords({
-        lat: parseInt(location.split(",")[0]),
-        lng: parseInt(location.split(",")[1]),
+        lat: parseFloat(location.split(",")[0]),
+        lng: parseFloat(location.split(",")[1]),
       });
     }
   }, [location, setCoords]);
