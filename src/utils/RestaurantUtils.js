@@ -18,7 +18,7 @@ const calcCenter = (locations) => {
 
   const lat = (bottomRight.lat - topLeft.lat) / 2 + topLeft.lat;
   const lng = (bottomRight.lng - topLeft.lng) / 2 + topLeft.lng;
-  return { lat, lng };
+  return { lat, lng, zoom: 12 };
 };
 
 export { calcCenter };

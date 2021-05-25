@@ -10,14 +10,20 @@ function LocationsMap(props) {
   const [activePopup, setActivePopup] = useState();
 
   useEffect(() => {
-    if (!locations || !originalCoords) return null;
-    const center = calcCenter(locations);
+    let center;
+    console.log("location", locations);
+    if (!originalCoords) return null;
+    if (!locations || !locations[0]) {
+      center = { ...originalCoords, zoom: 6 };
+    } else {
+      center = calcCenter(locations);
+    }
     setViewport({
       width: "100%",
       height: "100%",
       latitude: center.lat,
       longitude: center.lng,
-      zoom: 12,
+      zoom: center.zoom,
       style: { mapbox: "//styles/mapbox/streets-v11" },
     });
   }, [originalCoords, locations]);
