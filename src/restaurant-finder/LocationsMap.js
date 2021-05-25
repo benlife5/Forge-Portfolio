@@ -4,7 +4,6 @@ import { LocationContext } from "../contexts/LocationContext";
 
 function LocationsMap(props) {
   const { coords: originalCoords } = useContext(LocationContext);
-  console.log(originalCoords);
   const locations = props.locations;
   const [viewport, setViewport] = useState();
   const [activePopup, setActivePopup] = useState();
