@@ -132,6 +132,9 @@ function SearchInput(props) {
         backgroundColor: "#f9f9f9",
         height: "100%",
         padding: "2%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "column",
       }}
     >
       <Form
@@ -186,17 +189,20 @@ function SearchInput(props) {
           </Button>
         </Form.Item>
       </Form>
-
-      {coords && (
-        <Link
-          to={"/weather/" + coords.lat + "," + coords.lng}
-          component={Button}
-          variant="contained"
-          color="primary"
-        >
-          Check the Weather Here
-        </Link>
-      )}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <a href="https://icons8.com/icon/52671/marker">Marker icon by Icons8</a>
+        <img
+          src="/powered_by_google_on_white.png"
+          alt="Powered by Google"
+          style={{
+            display: "block",
+            maxWidth: "144px",
+            maxHeight: "18px",
+            width: "auto",
+            height: "auto",
+          }}
+        />
+      </div>
     </div>
   );
 }
