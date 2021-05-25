@@ -38,34 +38,27 @@ function SearchInput(props) {
   };
 
   // Search input => coords
-  const getCoords = (searchInput) => {
+  const getCoords = async (searchInput) => {
     // console.log(searchInput)
     // Convert input to geo location
-    axios
+    let geocodeLocation = await axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
           key: GOOGLE_GEOCODING_API_KEY,
           address: searchInput.location,
         },
       })
-      // Convert location to coordinates
-      .then((geocodeLocation) => {
-        // console.log("location", geocodeLocation);
-        console.log(
-          "setting coords",
-          geocodeLocation.data.results[0].geometry.location
-        );
-        setCoords(geocodeLocation.data.results[0].geometry.location);
-        return geocodeLocation.data.results[0].geometry.location;
-      })
-      .catch((e) => console.log(e));
+      .catch((error) => console.log(error));
+    const newCoords = geocodeLocation.data.results[0].geometry.location;
+    // console.log("newCoords inside fm", newCoords);
+    return newCoords;
   };
 
   // coords => location
-  const locationSearch = (searchInput) => {
+  const locationSearch = (searchInput, searchCoords = coords) => {
     let searchParams = {
       key: GOOGLE_PLACES_API_KEY,
-      location: coords.lat + "," + coords.lng,
+      location: searchCoords.lat + "," + searchCoords.lng,
       radius: parseInt(searchInput.radius) * MILE_TO_METER,
       type: searchInput.type,
     };
@@ -77,7 +70,7 @@ function SearchInput(props) {
       })
       // Get desired info about all places
       .then((locations) => {
-        console.log("results", locations);
+        // console.log("results", locations);
         Promise.all(
           locations.data.results.map(async (location) => {
             let info = await axios
@@ -107,10 +100,10 @@ function SearchInput(props) {
       .catch((error) => console.log(error));
   };
 
-  const search = (searchInput) => {
-    getCoords(searchInput);
-    console.log("coords as set:", coords);
-    locationSearch(searchInput);
+  const search = async (searchInput) => {
+    const newCoords = await getCoords(searchInput);
+    setCoords(newCoords);
+    locationSearch(searchInput, newCoords);
   };
 
   // console.log(props.defaultLocation);
