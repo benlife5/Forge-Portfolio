@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 import SearchInput from "./SearchInput.js";
 import SearchResults from "./SearchResults.js";
 import LocationsMap from "./LocationsMap.js";
+import { LocationContext } from "../contexts/LocationContext";
 
 function RestaurantApp({
   match: {
@@ -11,6 +12,9 @@ function RestaurantApp({
   },
 }) {
   const [results, setResults] = useState(null);
+  const { coords } = useContext(LocationContext);
+  console.log("RestaurantApp Rendering", Date.now());
+  console.log("RestaurantApp coords at render: ", coords);
 
   console.log(location);
   // console.log("TOP LEVEL", results)

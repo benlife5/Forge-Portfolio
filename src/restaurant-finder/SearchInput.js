@@ -6,7 +6,7 @@ import {
   Checkbox,
   AutoComplete,
 } from "antd";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { LocationContext } from "../contexts/LocationContext";
 const { Option } = Select;
@@ -19,7 +19,12 @@ function SearchInput(props) {
   const [options, setOptions] = useState([]);
   const { coords, setCoords } = useContext(LocationContext);
   console.log("coords at restaurant render: ", coords);
-
+  useEffect(() => {
+    console.log("running useEffect", Date.now());
+    if (coords) {
+      locationSearch({ type: "restaurant", radius: 5 });
+    }
+  }, []);
   const autoComplete = (searchInput) => {
     axios
       .get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
@@ -71,7 +76,7 @@ function SearchInput(props) {
       })
       // Get desired info about all places
       .then((locations) => {
-        // console.log("results", locations);
+        console.log("results", locations);
         Promise.all(
           locations.data.results.map(async (location) => {
             let info = await axios
