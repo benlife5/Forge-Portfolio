@@ -18,6 +18,7 @@ const MILE_TO_METER = 1609.34;
 function SearchInput(props) {
   const [options, setOptions] = useState([]);
   const { coords, setCoords } = useContext(LocationContext);
+  console.log("coords at restaurant render: ", coords);
 
   const autoComplete = (searchInput) => {
     axios

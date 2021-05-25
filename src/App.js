@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import WeatherApp from "./weather-app/WeatherApp";
 import RestaurantApp from "./restaurant-finder/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
@@ -32,13 +38,10 @@ function App() {
             }}
           >
             <div>
-              <Link
-                to="/home"
-                component={Button}
-                variant="contained"
-                color="primary"
-              >
-                Home
+              <Link to="/home">
+                <Button variant="contained" color="primary" component="p">
+                  Home
+                </Button>
               </Link>
             </div>
 
@@ -47,21 +50,15 @@ function App() {
             </Typography>
 
             <div style={{ textAlign: "right" }}>
-              <Link
-                to={"/weather/home"}
-                component={Button}
-                variant="contained"
-                color="primary"
-              >
-                Weather
+              <Link to={"/weather/home"}>
+                <Button variant="contained" color="primary" component="p">
+                  Weather
+                </Button>
               </Link>
-              <Link
-                to={`/restaurants/home`}
-                component={Button}
-                variant="contained"
-                color="primary"
-              >
-                Restaurant Finder
+              <Link to={`/restaurants/home`}>
+                <Button variant="contained" color="primary" component="p">
+                  Restaurant Finder
+                </Button>
               </Link>
             </div>
           </div>
