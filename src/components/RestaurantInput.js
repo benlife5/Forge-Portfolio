@@ -62,6 +62,7 @@ function SearchInput(props) {
 
   // Search input => coords
   const getCoords = async (searchInput) => {
+    let newCoords;
     // Convert input to geo location
     let geocodeLocation = await axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
@@ -71,8 +72,14 @@ function SearchInput(props) {
         },
       })
       .catch((error) => console.log(error));
-    const newCoords = geocodeLocation.data.results[0].geometry.location;
-    return newCoords;
+    try {
+      newCoords = geocodeLocation.data.results[0].geometry.location;
+    } catch (error) {
+      console.log(error);
+      newCoords = "invalid";
+    } finally {
+      return newCoords;
+    }
   };
 
   // coords => location
@@ -121,8 +128,12 @@ function SearchInput(props) {
 
   const search = async (searchInput) => {
     const newCoords = await getCoords(searchInput);
-    setCoords(newCoords);
-    locationSearch(searchInput, newCoords);
+    if (newCoords === "invalid") {
+      alert("Invalid Location");
+    } else {
+      setCoords(newCoords);
+      locationSearch(searchInput, newCoords);
+    }
   };
 
   return (
