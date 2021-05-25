@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import WeatherApp from "./components/WeatherApp";
-import RestaurantApp from "./restaurant-finder/RestaurantApp";
+import RestaurantApp from "./components/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
 import { LocationProvider } from "./contexts/LocationContext";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";

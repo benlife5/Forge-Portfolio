@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { LocationContext } from "../contexts/LocationContext";
+import { calcCenter } from "../utils/RestaurantUtils";
 
 function LocationsMap(props) {
   const { coords: originalCoords } = useContext(LocationContext);
@@ -10,31 +11,12 @@ function LocationsMap(props) {
 
   useEffect(() => {
     if (!locations || !originalCoords) return null;
-
-    let topLeft = locations[0].geometry.location;
-    let bottomRight = locations[0].geometry.location;
-    for (let i = 0; i < locations.length; i++) {
-      if (
-        locations[i].geometry.location.lat < topLeft.lat ||
-        locations[i].geometry.location.lng > topLeft.lng
-      ) {
-        topLeft = locations[i].geometry.location;
-      }
-      if (
-        locations[i].geometry.location.lat > bottomRight.lat ||
-        locations[i].geometry.location.lng < bottomRight.lng
-      ) {
-        bottomRight = locations[i].geometry.location;
-      }
-    }
-
-    const lat = (bottomRight.lat - topLeft.lat) / 2 + topLeft.lat;
-    const lng = (bottomRight.lng - topLeft.lng) / 2 + topLeft.lng;
+    const center = calcCenter(locations);
     setViewport({
       width: "100%",
       height: "100%",
-      latitude: lat,
-      longitude: lng,
+      latitude: center.lat,
+      longitude: center.lng,
       zoom: 12,
       style: { mapbox: "//styles/mapbox/streets-v11" },
     });
@@ -56,6 +38,7 @@ function LocationsMap(props) {
       </div>
     );
   }
+
   return (
     <ReactMapGL
       {...viewport}

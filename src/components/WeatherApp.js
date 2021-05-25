@@ -1,4 +1,4 @@
-import LocationInput from "../weather-app/LocationInput.js";
+import LocationInput from "./LocationInput.js";
 import CurrentWeather from "./CurrentWeather.js";
 import Forecast from "./Forecast.js";
 import { useContext, useEffect } from "react";
