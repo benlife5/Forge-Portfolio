@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import WeatherApp from "./weather-app/WeatherApp";
 import RestaurantApp from "./restaurant-finder/RestaurantApp";
 import { Typography, Button } from "@material-ui/core";
-
+import { LocationProvider } from "./contexts/LocationContext";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -19,55 +19,58 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <div
-          style={{
-            height: "7.5vh",
-            backgroundColor: "#88AB75",
-            display: "grid",
-            gridTemplate: "100% / calc(100% / 3) calc(100% / 3) calc(100% / 3)",
-            padding: "0 1% 0 1%",
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <Link
-              to="/home"
-              component={Button}
-              variant="contained"
-              color="primary"
-            >
-              Home
-            </Link>
-          </div>
+        <LocationProvider>
+          <div
+            style={{
+              height: "7.5vh",
+              backgroundColor: "#88AB75",
+              display: "grid",
+              gridTemplate:
+                "100% / calc(100% / 3) calc(100% / 3) calc(100% / 3)",
+              padding: "0 1% 0 1%",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <Link
+                to="/home"
+                component={Button}
+                variant="contained"
+                color="primary"
+              >
+                Home
+              </Link>
+            </div>
 
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            Forge Launch
-          </Typography>
+            <Typography variant="h5" style={{ textAlign: "center" }}>
+              Forge Launch
+            </Typography>
 
-          <div style={{ textAlign: "right" }}>
-            <Link
-              to={"/weather/home"}
-              component={Button}
-              variant="contained"
-              color="primary"
-            >
-              Weather
-            </Link>
-            <Link
-              to={`/restaurants/home`}
-              component={Button}
-              variant="contained"
-              color="primary"
-            >
-              Restaurant Finder
-            </Link>
+            <div style={{ textAlign: "right" }}>
+              <Link
+                to={"/weather/home"}
+                component={Button}
+                variant="contained"
+                color="primary"
+              >
+                Weather
+              </Link>
+              <Link
+                to={`/restaurants/home`}
+                component={Button}
+                variant="contained"
+                color="primary"
+              >
+                Restaurant Finder
+              </Link>
+            </div>
           </div>
-        </div>
-        <Switch>
-          <Route path="/weather/:location" component={WeatherApp} />
-          <Route path="/restaurants/" component={RestaurantApp} />
-          <Route path="/home/" component={Home} />
-        </Switch>
+          <Switch>
+            <Route path="/weather/:location" component={WeatherApp} />
+            <Route path="/restaurants/" component={RestaurantApp} />
+            <Route path="/home/" component={Home} />
+          </Switch>
+        </LocationProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

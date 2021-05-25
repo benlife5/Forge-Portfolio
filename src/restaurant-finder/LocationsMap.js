@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import { LocationContext } from "../contexts/LocationContext";
 
 function LocationsMap(props) {
+  const { coords: originalCoords } = useContext(LocationContext);
   const locations = props.locations;
   const [viewport, setViewport] = useState();
   const [activePopup, setActivePopup] = useState();
@@ -94,8 +96,8 @@ function LocationsMap(props) {
         </Popup>
       )}
       <Marker
-        latitude={props.inputCoords.lat}
-        longitude={props.inputCoords.lng}
+        latitude={originalCoords.lat}
+        longitude={originalCoords.lng}
         offsetLeft={-20}
         offsetTop={-10}
       >

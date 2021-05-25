@@ -6,8 +6,9 @@ import {
   Checkbox,
   AutoComplete,
 } from "antd";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { LocationContext } from "../contexts/LocationContext";
 const { Option } = Select;
 const axios = require("axios");
 const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
@@ -16,7 +17,7 @@ const MILE_TO_METER = 1609.34;
 
 function SearchInput(props) {
   const [options, setOptions] = useState([]);
-  const inputCoords = props.inputCoords;
+  const { coords, setCoords } = useContext(LocationContext);
 
   const autoComplete = (searchInput) => {
     axios
@@ -50,7 +51,11 @@ function SearchInput(props) {
       // Convert location to coordinates
       .then((geocodeLocation) => {
         // console.log("location", geocodeLocation);
-        props.setInputCoords(geocodeLocation.data.results[0].geometry.location);
+        console.log(
+          "setting coords",
+          geocodeLocation.data.results[0].geometry.location
+        );
+        setCoords(geocodeLocation.data.results[0].geometry.location);
         return geocodeLocation.data.results[0].geometry.location;
       })
       .catch((e) => console.log(e));
@@ -58,7 +63,6 @@ function SearchInput(props) {
 
   // coords => location
   const locationSearch = (searchInput) => {
-    const coords = inputCoords;
     let searchParams = {
       key: GOOGLE_PLACES_API_KEY,
       location: coords.lat + "," + coords.lng,
@@ -105,6 +109,7 @@ function SearchInput(props) {
 
   const search = (searchInput) => {
     getCoords(searchInput);
+    console.log("coords as set:", coords);
     locationSearch(searchInput);
   };
 
@@ -179,9 +184,9 @@ function SearchInput(props) {
         </Form.Item>
       </Form>
 
-      {inputCoords && (
+      {coords && (
         <Link
-          to={"/weather/" + inputCoords.lat + "," + inputCoords.lng}
+          to={"/weather/" + coords.lat + "," + coords.lng}
           component={Button}
           variant="contained"
           color="primary"

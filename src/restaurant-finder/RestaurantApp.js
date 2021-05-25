@@ -11,7 +11,6 @@ function RestaurantApp({
   },
 }) {
   const [results, setResults] = useState(null);
-  const [inputCoords, setInputCoords] = useState(null);
 
   console.log(location);
   // console.log("TOP LEVEL", results)
@@ -19,16 +18,11 @@ function RestaurantApp({
     <div style={{ height: "90vh", padding: "1%" }}>
       <Row style={{ height: "50%" }}>
         <Col span={12}>
-          <SearchInput
-            setResults={setResults}
-            setInputCoords={setInputCoords}
-            inputCoords={inputCoords}
-            defaultLocation={location}
-          />
+          <SearchInput setResults={setResults} />
         </Col>
         <Col span={12}>
           <div style={{ paddingLeft: ".5vw", width: "100%", height: "100%" }}>
-            <LocationsMap locations={results} inputCoords={inputCoords} />
+            <LocationsMap locations={results} />
           </div>
         </Col>
       </Row>
